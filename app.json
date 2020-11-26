@@ -1,0 +1,12 @@
+{
+  "name": "Chiller",
+  "displayName": "Chiller",
+  "expo": {
+    "name": "Chiller",
+    "slug": "Chiller",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
