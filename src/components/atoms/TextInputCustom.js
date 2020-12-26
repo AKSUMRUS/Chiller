@@ -10,7 +10,6 @@ export default function TextInputCustom(props){
                 height: 40,
                 borderColor: 'gray',
                 borderWidth: 1,
-                placeholderTextColor: 'gray',
             },props.style]}
             onChangeText={props.onChangeText}
             value={props.value}

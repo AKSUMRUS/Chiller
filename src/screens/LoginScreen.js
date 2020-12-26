@@ -7,8 +7,7 @@ import ButtonCustom from "../components/atoms/ButtonCustom";
 import LogIn from "../components/molecules/Login";
 import {View} from "react-native";
 
-const LoginScreen = () => {
-    const {setScreen} = useNavigation();
+const LoginScreen = ({navigation}) => {
     const {isLight, setLight, setDark, THEME_COLOR} = useTheme();
     const toggleSwitch = (value) => {
         if(value) {
@@ -21,14 +20,19 @@ const LoginScreen = () => {
     return(
         <View style={[styles.container,{backgroundColor: THEME_COLOR.MAIN_BG}]}>
             <LogIn/>
-            <ButtonCustom title={"Зарегистрироваться"} style={{alignItems: 'center',
-                justifyContent: 'center',
-                position: 'absolute',
-                bottom: 35}}
-            onPress={() => {
-                setScreen(SCREEN.REGISTER)
-            }}
-            type={'header2'}/>
+            <ButtonCustom
+                title={"Зарегистрироваться"}
+                style={{
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    position: 'absolute',
+                    bottom: 35
+                }}
+                onPress={() => {
+                    navigation.navigate(SCREEN.AUTH.REGISTER)
+                }}
+                type={'header2'}
+            />
         </View>
     );
 }

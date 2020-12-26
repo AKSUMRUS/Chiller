@@ -1,22 +1,20 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import LogIn from "./src/components/molecules/Login";
+import { StyleSheet } from 'react-native';
 import {store} from "./src/store";
 import {Provider} from "react-redux";
-import {NavigationProvider} from "./src/context/NavigationStore";
-import Navigation from "./src/navigation/Navigation";
+import RootNavigator from "./src/navigation/RootNavigator";
 import {ThemeProvider} from "./src/context/ThemeStore";
+import {NavigationContainer} from '@react-navigation/native'
 
 export default function App() {
   return (
-      <NavigationProvider>
+      <NavigationContainer>
         <ThemeProvider>
           <Provider store={store}>
-            <Navigation/>
+            <RootNavigator/>
           </Provider>
-          </ThemeProvider>
-      </NavigationProvider>
+        </ThemeProvider>
+      </NavigationContainer>
   );
 }
 

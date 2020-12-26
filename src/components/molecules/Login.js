@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import {ActivityIndicator, StyleSheet, Text, View} from 'react-native';
 import {TextInput} from "react-native";
 import {Button} from "react-native";
 import TextInputCustom from "../atoms/TextInputCustom";
@@ -10,7 +10,7 @@ import {SCREEN} from "../../constants";
 import {useNavigation} from "../../context/NavigationStore";
 import {signUp} from "../../store/actions/auths/auths";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {login} from "../../store/actions/auths/auths";
 
 export default function LogIn() {
@@ -18,6 +18,7 @@ export default function LogIn() {
     const [password,setPassword] = React.useState('');
     const [email,setEmail] = React.useState('');
     const  dispatch = useDispatch();
+    const {isLoading, errors} = useSelector(store => store.auth)
 
     const storeData = async (value) => {
         try {
@@ -30,18 +31,19 @@ export default function LogIn() {
 
     return (
         <View style={styles.container}>
+            {isLoading ? <ActivityIndicator/> : null}
             <TextViewCustom type={'header2'}>Email</TextViewCustom>
             <TextInputCustom placeholder="Enter your email" style={{marginBottom: 20}} onChangeText={text => setEmail(text)} value={email}/>
             <TextViewCustom type={'header2'}>Password</TextViewCustom>
             <TextInputCustom placeholder="Enter your password" style={{marginBottom: 20}} onChangeText={text => setPassword(text)} value={password}/>
             <ButtonCustom title={"Вход"} type={'header2'} onPress={() => {
-                const raw = {
+                dispatch(login({
                     email: email,
                     password: password
-                };
-                dispatch(login(raw))
-                storeData().then( () => {setScreen(SCREEN.MAIN);})
-            }}/>
+                }))
+            }}
+                disabled={isLoading}
+            />
         </View>
     );
 }
